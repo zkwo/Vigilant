@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anas Rin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color-dark: #1a1a1a;
+            --text-color-dark: #e0e0e0;
+            --header-bg-dark: #222222;
+            --button-bg-dark: #333333;
+            --button-hover-bg-dark: #444444;
+            --link-color-dark: #90caf9; /* A light blue for links */
+            --description-color-dark: #a6a7ab;
+            --info-color-dark: #a6a7ab;
+            --border-color-dark: rgba(255, 255, 255, 0.1);
+
+            --bg-color-light: #ffffff;
+            --text-color-light: #333333;
+            --header-bg-light: #f0f0f0;
+            --button-bg-light: #e0e0e0;
+            --button-hover-bg-light: #d0d0d0;
+            --link-color-light: #1976d2; /* A darker blue for links */
+            --description-color-light: #5c5f66;
+            --info-color-light: #5c5f66;
+            --border-color-light: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark Theme Default */
+        body {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        /* Light Theme Styles */
+        body.light-theme {
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+        }
+
+        header {
+            background-color: var(--header-bg-dark);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 0.75rem 0;
+        }
+
+        body.light-theme header {
+            background-color: var(--header-bg-light);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 768px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-container {
+            max-width: 768px;
+            margin: 1rem auto 0;
+            padding: 1.5rem 1rem 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        nav.group {
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 0.5rem;
+        }
+
+        nav.group.md {
+            display: flex; /* Show by default for larger screens */
+        }
+
+        nav.group.xs {
+            display: none; /* Hide by default for larger screens */
+        }
+
+        @media (max-width: 768px) {
+            nav.group.md {
+                display: none; /* Hide for smaller screens */
+            }
+            nav.group.xs {
+                display: flex; /* Show for smaller screens */
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            color: var(--text-color-dark);
+            background-color: var(--button-bg-dark);
+            transition: background-color 0.2s, color 0.2s;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        body.light-theme .btn {
+            color: var(--text-color-light);
+            background-color: var(--button-bg-light);
+        }
+
+        .btn:hover {
+            background-color: var(--button-hover-bg-dark);
+        }
+
+        body.light-theme .btn:hover {
+            background-color: var(--button-hover-bg-light);
+        }
+
+        .btn-square {
+            padding: 0.5rem;
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .profile-responsive {
+            display: flex;
+            flex-direction: row-reverse; /* Avatar on right by default */
+            gap: 1rem;
+            align-items: center;
+        }
+
+        @media (max-width: 540px) { /* Equivalent to 33.75rem */
+            .profile-responsive {
+                flex-direction: column; /* Stack avatar on top for smaller screens */
+                align-items: center;
+                text-align: center; /* Center text under avatar */
+            }
+        }
+
+        .avatar {
+            width: 8.75rem;
+            height: 8.75rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-grow: 1; /* Allows it to take available space */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 1.802rem;
+        }
+
+        h2 {
+            font-size: 1.602rem;
+        }
+
+        h3 {
+            font-size: 1.424rem;
+        }
+
+        h4 {
+            font-size: 1.266rem;
+        }
+
+        h5 {
+            font-size: 1.125rem;
+        }
+
+        h6 {
+            font-size: 1rem;
+        }
+
+        .description {
+            margin: 0.5rem 0 0;
+            padding: 0;
+            color: var(--description-color-dark);
+            font-size: 0.95rem;
+            max-width: 100%; /* Ensure it fits within its container */
+            line-height: 1.5; /* Improve readability */
+        }
+
+        body.light-theme .description {
+            color: var(--description-color-light);
+        }
+
+        .profile-links {
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 0.5rem;
+        }
+
+        .heading {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.4rem;
+            width: 100%;
+        }
+
+        .heading a {
+            font-size: 0.875rem;
+            text-decoration: none;
+            color: var(--link-color-dark);
+        }
+
+        body.light-theme .heading a {
+            color: var(--link-color-light);
+        }
+
+        .heading a:hover {
+            opacity: 0.75;
+        }
+
+        ul {
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 0.25rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            width: 100%;
+        }
+
+        li {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        li > a {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: inherit !important;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none !important;
+            white-space: nowrap;
+            flex-grow: 1;
+        }
+
+        li > a:hover {
+            opacity: 0.75;
+        }
+
+        .information {
+            color: var(--info-color-dark);
+            font-size: 0.875rem;
+            font-variant-numeric: tabular-nums;
+            cursor: help;
+            white-space: nowrap;
+        }
+
+        body.light-theme .information {
+            color: var(--info-color-light);
+        }
+
+        /* Theme toggle button specific styles */
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .theme-toggle-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: opacity 0.3s;
+        }
+
+        .only-dark {
+            display: none; /* Hidden by default in light theme */
+        }
+
+        .only-light {
+            display: block; /* Shown by default in dark theme */
+        }
+
+        body.light-theme .only-dark {
+            display: block;
+        }
+
+        body.light-theme .only-light {
+            display: none;
+        }
+
+        footer {
+            margin-top: 2rem;
+            padding: 1rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color-dark);
+        }
+
+        body.light-theme footer {
+            border-top: 1px solid var(--border-color-light);
+        }
+
+        footer .footer-container {
+            max-width: 768px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        footer .group-btn {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        footer .text {
+            font-size: 0.875rem;
+            color: var(--description-color-dark);
+        }
+
+        body.light-theme footer .text {
+            color: var(--description-color-light);
+        }
+
+        .heart {
+            color: #e25555; /* Red heart */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <nav class="group md">
+                <a class="btn" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6"></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304"></path><path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z"></path></svg>
+                    Home
+                </a>
+                <a class="btn" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10"></path><path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2"></path></svg>
+                    Guestbook
+                </a>
+                <a class="btn" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><path d="M14 17h6m-3 -3v6"></path></svg>
+                    Projects
+                </a>
+                <a class="btn" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11"></path><line x1="8" y1="8" x2="12" y2="8"></line><line x1="8" y1="12" x2="12" y2="12"></line><line x1="8" y1="16" x2="12" y2="16"></line></svg>
+                    Blog
+                </a>
+            </nav>
+            <nav class="group xs">
+                <a class="btn btn-square" href="#" title="Home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6"></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304"></path><path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z"></path></svg>
+                </a>
+                <a class="btn btn-square" href="#" title="Guestbook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10"></path><path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2"></path></svg>
+                </a>
+                <a class="btn btn-square" href="#" title="Projects">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><path d="M14 17h6m-3 -3v6"></path></svg>
+                </a>
+                <a class="btn btn-square" href="#" title="Blog">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11"></path><line x1="8" y1="8" x2="12" y2="8"></line><line x1="8" y1="12" x2="12" y2="12"></line><line x1="8" y1="16" x2="12" y2="16"></line></svg>
+                </a>
+            </nav>
+            <nav class="display:flex flex-flow:row_wrap gap:0.5rem align-items:center">
+                <button class="btn btn-square theme-toggle-btn" title="Toggle Dark/Light Mode" id="theme-toggle">
+                    <svg class="only-dark" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="12" r="4"></circle><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path></svg>
+                    <svg class="only-light" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"></path><path d="M19 11h2m-1 -1v2"></path></svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="profile-section">
+            <div class="profile-responsive">
+                <div>
+                    <img class="avatar" src="https://avatars.githubusercontent.com/u/38805204" alt="Anas Rin" title="Anas Rin">
+                </div>
+                <section class="profile-detail">
+                    <h1>Anas Rin</h1>
+                    <h5>Software Engineer</h5>
+                </section>
+            </div>
+            <p class="description">Create and develop web app using TypeScript, Next.js, Go, PHP, Laravel, SQL database, React, Vue, and Svelte. Contribute to open-source community. Interested in web technology, 3D in technical side, game development, and technology in general.</p>
+
+            <div class="profile-links">
+                <a class="btn" href="mailto:mynameanasrar@gmail.com">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 18h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v7.5"></path><path d="M3 6l9 6l9 -6"></path><path d="M15 18h6"></path><path d="M18 15l3 3l-3 3"></path></svg>
+                    Contact Me
+                </a>
+            </div>
+        </div>
+
+        <div class="projects">
+            <div class="heading">
+                <h6>Recent Personal Projects</h6>
+                <a href="#">View all</a>
+            </div>
+            <ul>
+                <li>
+                    <a href="#" title="Hiragana Guess - Quiz to test my memory on hiragana">Hiragana Guess - Quiz to test my memory on hiragana</a>
+                    <div class="information">
+                        <time title="2024-12-18T00:00:00.000Z" datetime="2024-12-18T00:00:00.000Z">December 18, 2024</time>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" title="Katakana Guess - Quiz to test my memory on katakana">Katakana Guess - Quiz to test my memory on katakana</a>
+                    <div class="information">
+                        <time title="2024-12-18T00:00:00.000Z" datetime="2024-12-18T00:00:00.000Z">December 18, 2024</time>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" title="afs - Unpack and Pack AFS File">afs - Unpack and Pack AFS File</a>
+                    <div class="information">
+                        <time title="2024-10-20T00:00:00.000Z" datetime="2024-10-20T00:00:00.000Z">October 20, 2024</time>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="blog">
+            <div class="heading">
+                <h6>Recent Blog</h6>
+                <a href="#">View all</a>
+            </div>
+            <ul>
+                <li>
+                    <a href="#" title="Windows: Flush DNS PowerShell and WSL">Windows: Flush DNS PowerShell and WSL</a>
+                    <div class="information">
+                        <time title="2025-05-10T00:00:00.000Z" datetime="2025-05-10T00:00:00.000Z">May 10, 2025</time>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" title="C: Catch Segmentation Fault and Stack Trace">C: Catch Segmentation Fault and Stack Trace</a>
+                    <div class="information">
+                        <time title="2024-08-16T00:00:00.000Z" datetime="2024-08-16T00:00:00.000Z">August 16, 2024</time>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" title="Samsung Android Update Is Terrible">Samsung Android Update Is Terrible</a>
+                    <div class="information">
+                        <time title="2024-07-07T00:00:00.000Z" datetime="2024-07-07T00:00:00.000Z">July 07, 2024</time>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <nav class="group-btn">
+                <a class="btn btn-square" href="mailto:mynameanasrar@gmail.com" title="Send Email">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="12" r="4"></circle><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28"></path></svg>
+                </a>
+                <a class="btn btn-square" href="//twitter.com/rrrriiiiiinnnn" target="_blank" title="My Twitter Account">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z"></path></svg>
+                </a>
+                <a class="btn btn-square" href="//www.youtube.com/@anasrar" target="_blank" title="My YouTube Channel">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="5" width="18" height="14" rx="4"></rect><path d="M10 9l5 3l-5 3z"></path></svg>
+                </a>
+                <a class="btn btn-square" href="//github.com/anasrar" target="_blank" title="My GitHub Account">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path></svg>
+                </a>
+                <a class="btn btn-square" href="#" title="RSS Blog">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="5" cy="19" r="1"></circle><path d="M4 4a16 16 0 0 1 16 16"></path><path d="M4 11a9 9 0 0 1 9 9"></path></svg>
+                </a>
+            </nav>
+            <div class="text">
+                Made with <span class="heart">❤</span> by Anas Rin — Powered by Astro & Vercel
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Function to set the theme
+        function setTheme(theme) {
+            if (theme === 'light-theme') {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            // Default to light theme if system preference is light
+            setTheme('light-theme');
+        } else {
+            // Default to dark theme if no preference or system preference is dark
+            setTheme('dark-theme');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (body.classList.contains('dark-theme')) {
+                setTheme('light-theme');
+            } else {
+                setTheme('dark-theme');
+            }
+        });
+    </script>
+</body>
+</html>
